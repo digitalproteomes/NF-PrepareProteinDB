@@ -10,11 +10,11 @@ if(params.help) {
     log.info""
     log.info"Options:"
     log.info "  --help:         show this message and exit"
-    log.info "  --up_id:        the UniProt ID of the proteome (default: UP000005640)"
-    log.info "  --reviewed:     only include reviewed entries (default: yes)"
-    log.info "  --decoy:        prefix for decoys (default: DECOY_)"
+    log.info "  --up_id:        the UniProt ID of the proteome (default: $params.up_id)"
+    log.info "  --reviewed:     only include reviewed entries (default: $params.reviewed)"
+    log.info "  --decoy:        prefix for decoys (default: $params.decoy)"
     log.info ""
-    log.info "Results will be in Results/Mzxml/"
+    log.info "Results will be in Results/Databases/"
     log.info ""
     exit 1
 }
@@ -45,7 +45,7 @@ process formatForTpp {
 
 
 process generateDecoys {
-    publishDir 'Results'
+    publishDir 'Results/Databases'
     
     input:
     file fasta from format_out
