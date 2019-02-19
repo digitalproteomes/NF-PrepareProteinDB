@@ -16,4 +16,4 @@ Convert all .raw files in the Data folder to mzXML files using default settings 
 ```bash
 nextflow run digitalproteomes/NF-PrepareProteinDB
 ```
-At the end of the workflow the prepared databse will be found in the *Results* folder.
+At the end of the workflow the prepared database will be found in the *Results/Databases* folder.
