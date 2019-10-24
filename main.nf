@@ -45,14 +45,14 @@ process formatForTpp {
 
 
 process generateDecoys {
-    publishDir 'Results/Databases'
+    publishDir 'Results/Databases', mode: 'link'
     
     input:
     file fasta from format_out
 
     output:
-    file("${db_name}_decovy.fasta")
+    file("${db_name}_decoy.fasta")
     
     script:
-    "decoyFastaGenerator.pl $fasta $params.decoy ${db_name}_decovy.fasta"
+    "decoyFastaGenerator.pl $fasta $params.decoy ${db_name}_decoy.fasta"
 }
