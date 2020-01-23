@@ -12,7 +12,6 @@ The workflow takes the following parameters:
 
 Example usage:
 
-Convert all .raw files in the Data folder to mzXML files using default settings for ReAdW:
 ```bash
 nextflow run digitalproteomes/NF-PrepareProteinDB
 ```
