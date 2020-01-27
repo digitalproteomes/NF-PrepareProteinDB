@@ -17,7 +17,7 @@ def format_description(fasta_file_name):
     for line in fin:
       match = re.match(pattern, line)
       if match:
-        formatted_fasta += ">{} {} {} {}".format(match.group(2),
+        formatted_fasta += ">{} {} {} {}\n".format(match.group(2),
                                                   match.group(3),
                                                   match.group(1),
                                                   match.group(4))
