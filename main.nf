@@ -1,58 +1,35 @@
-int year = Calendar.getInstance().get(Calendar.YEAR)
-int month = Calendar.getInstance().get(Calendar.MONTH)+1
-time_stamp = year + "_" + String.format("%02d", month)
-db_name = time_stamp + "_" + params.up_id
+nextflow.enable.dsl=2
 
-if(params.help) {
-    log.info""
-    log.info"Prepare UniProt DB"
-    log.info"----------------------------"
-    log.info""
-    log.info"Options:"
-    log.info "  --help:         show this message and exit"
-    log.info "  --up_id:        the UniProt ID of the proteome (default: $params.up_id)"
-    log.info "  --reviewed:     only include reviewed entries (default: $params.reviewed)"
-    log.info "  --decoy:        prefix for decoys (default: $params.decoy)"
-    log.info ""
-    log.info "Results will be in Results/Databases/"
-    log.info ""
-    exit 1
-}
+include {remote;
+	 local} from './prepareProteinDB_workflows.nf'
 
-process download {
-    output:
-    file("${db_name}.fasta")  into download_out
-
-    script:
-    """
-    wget -O - 'https://www.uniprot.org/uniprot/?query=proteome:$params.up_id%20reviewed:${params.reviewed}&format=fasta&force=true&compress=yes' | gunzip -c > ${db_name}.fasta
-    """
-}
+//     log.info ""
+//     exit 1
+// }
 
 
-process formatForTpp {
-    input:
-    file fasta from download_out
+workflow {
+    main:
+    log.info("++++++++++========================================")
+    log.info("Executing PrepareProteinDB workflow")
+    log.info("")
+    log.info("Parameters:")
+    if(params.remote) {
+	log.info(" Uniprot ID:\t $params.up_id")
+	log.info(" Reviewed status:\t $params.reviewed")
+    }
+    else {
+	log.info(" Input database:\t $params.local_database")
+    }
+    log.info(" Decoy prefix:\t $params.decoy_prefix")
 
-    output:
-    file("${db_name}.fasta") into format_out
-    
-    script:
-    """
-    format_db.py $fasta
-    """
-}
-
-
-process generateDecoys {
-    publishDir 'Results/Databases', mode: 'link'
-    
-    input:
-    file fasta from format_out
-
-    output:
-    file("${db_name}_decoy.fasta")
-    
-    script:
-    "decoyFastaGenerator.pl $fasta $params.decoy ${db_name}_decoy.fasta"
+    if(params.remote) {
+	remote(params.up_id,
+	       params.reviewed,
+	       params.decoy_prefix)
+    }
+    else {
+	local(params.local_database,
+	      params.decoy_prefix)
+    }    
 }
