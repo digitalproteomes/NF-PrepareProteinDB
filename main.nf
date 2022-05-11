@@ -21,7 +21,11 @@ workflow {
     else {
 	log.info(" Input database:\t $params.local_database")
     }
-    log.info(" Decoy prefix:\t $params.decoy_prefix")
+    if(params.decoy_prefix){
+	log.info(" Decoy prefix:\t $params.decoy_prefix")
+    }
+    log.info("++++++++++========================================")
+
 
     if(params.remote) {
 	remote(params.up_id,
