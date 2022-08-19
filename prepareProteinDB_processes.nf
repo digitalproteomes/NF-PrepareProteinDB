@@ -30,7 +30,7 @@ process uniprotDownload {
 
     script:
     """
-    wget -O - 'https://www.uniprot.org/uniprot/?query=proteome:$up_id%20reviewed:${reviewed}&format=fasta&force=true&compress=yes' | gunzip -c > ${db_name}.fasta
+    wget -O - 'https://rest.uniprot.org/uniprotkb/search?query=proteome:$up_id%20reviewed:${reviewed}&format=fasta&force=true&compress=yes' | gunzip -c > ${db_name}.fasta
     """
 }
 
