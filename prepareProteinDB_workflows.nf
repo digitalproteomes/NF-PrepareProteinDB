@@ -15,13 +15,11 @@ workflow remote {
 
     take:
     up_id
-    reviewed
     decoy_prefix
 
     main:
     generateDbName(up_id)
     uniprotDownload(up_id,
-		    reviewed,
 		    generateDbName.out.db_name)
     formatForTpp(uniprotDownload.out.database)
     if(decoy_prefix){

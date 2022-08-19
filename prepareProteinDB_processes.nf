@@ -22,7 +22,6 @@ process uniprotDownload {
     
     input:
     val up_id
-    val reviewed
     val db_name
     
     output:

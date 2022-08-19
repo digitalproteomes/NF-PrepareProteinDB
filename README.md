@@ -8,7 +8,6 @@ Optionally a local database can also be used as a starting point.
 The workflow takes the following parameters:
 * --remote:       whether to download database from UniProt (true) or use local one (false)	
 * --up_id:        the UniProt ID of the proteome (default: UP000005640)
-* --reviewed:     only include reviewed entries (default: yes)
 * --decoy:        prefix for decoys (default: DECOY_). Set to false to skip decoy generation
 * --local_database: path to local database (in combination with remote = false)a
 

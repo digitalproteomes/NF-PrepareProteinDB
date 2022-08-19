@@ -16,7 +16,6 @@ workflow {
     log.info("Parameters:")
     if(params.remote) {
 	log.info(" Uniprot ID:\t $params.up_id")
-	log.info(" Reviewed status:\t $params.reviewed")
     }
     else {
 	log.info(" Input database:\t $params.local_database")
@@ -29,7 +28,6 @@ workflow {
 
     if(params.remote) {
 	remote(params.up_id,
-	       params.reviewed,
 	       params.decoy_prefix)
     }
     else {
